@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QDialog" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>477</width>
+    <height>433</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>81</y>
+     <width>451</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Информация</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Угол:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="pos_l">
+      <property name="text">
+       <string>Null</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Расстояние:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="dist_l">
+      <property name="text">
+       <string>Null</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>12</y>
+     <width>451</width>
+     <height>69</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Подключение</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QComboBox" name="portlist"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="connect_b">
+      <property name="text">
+       <string>Connect</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="disconnect_b">
+      <property name="text">
+       <string>Disconnect</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>19</x>
+     <y>159</y>
+     <width>441</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout"/>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
