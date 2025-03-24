@@ -20,16 +20,66 @@
 - TRIG к цифровому пину 3
 - Сервопривод к цифровому пину 4
 
-## Установка программного обеспечения
+## Создание программы
 
 ### Python и PyQt
 
 1. Убедитесь, что у вас установлен [Python 3.6 или выше](https://www.python.org/downloads/).
 2. Установите [Pycharm CE](https://www.jetbrains.com/pycharm/download/) `*пролистайте чуть ниже`.
-3. Откройте `radar_pyqtgraph.py` в Pycharm CE.
-4. Установите необходимые библиотеки из `requirements.txt`
+3. Создайте новый проект ![Image](https://raw.githubusercontent.com/Andrew-24coop/Radar/refs/heads/main/docs/image/create_new_project.png "Создать новый проект")  
+4. Поздравляю, можно начать программировать!
 
-### Arduino
+#### ```main.py```
+
+- Установим все библиотеки
+```import sys
+import serial  # Библиотека Python для работы с последовательными соединениями
+import serial.tools.list_ports  # Инструменты для перечисления доступных последовательных портов
+import pyqtgraph as pg  # Библиотека для создания интерактивных графиков
+import numpy as np  # Библиотека для численных операций
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox  # Компоненты для GUI
+from PyQt6.QtSerialPort import QSerialPort  # Обработка последовательного порта для PyQt
+from design import Ui_MainWindow  # Импорт класса дизайна UI
+```
+- Создадим структуру класса
+```# Определение класса для основного приложения
+class SerialApp(QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)  # Настройка UI компонентов
+        self.serial = QSerialPort()  # Создание экземпляра последовательного порта
+        self.setWindowTitle("Radar")  # Установка заголовка окна
+    
+    def populate_ports(self):
+        return
+    
+    def connect_serial(self):
+        return
+        
+    def disconnect_serial(self):
+        return
+    
+    def read_serial_port(self):
+        return
+    
+    def setup_radar_graph(self):
+        return
+    
+    def update_radar(self):
+        return
+
+
+# Основной блок для запуска приложения
+if __name__ == "__main__":
+    app = QApplication(sys.argv)  # Создание приложения
+    window = SerialApp()  # Создание экземпляра SerialApp
+    window.show()  # Показать основное окно
+    sys.exit(app.exec())  # Выполнение приложения
+```
+
+
+#
+## Arduino
 
 1. Установите [Arduino IDE](https://www.arduino.cc/en/software).
 2. Откройте файл `Radar.ino` и загрузите его на вашу плату Arduino.
