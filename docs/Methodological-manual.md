@@ -22,17 +22,17 @@
 
 ## Установка программного обеспечения
 
+### Python и PyQt
+
+1. Убедитесь, что у вас установлен [Python 3.6 или выше](https://www.python.org/downloads/).
+2. Установите [Pycharm CE](https://www.jetbrains.com/pycharm/download/) `*пролистайте чуть ниже`.
+3. Откройте `radar_pyqtgraph.py` в Pycharm CE.
+4. Установите необходимые библиотеки из `requirements.txt`
+
 ### Arduino
 
 1. Установите [Arduino IDE](https://www.arduino.cc/en/software).
 2. Откройте файл `Radar.ino` и загрузите его на вашу плату Arduino.
-
-### Python и PyQt
-
-1. Убедитесь, что у вас установлен [Python 3.6 или выше](https://www.python.org/downloads/).
-2. Установите [Pycharm CE](https://www.jetbrains.com/pycharm/download/) `пролистайте чуть ниже`.
-3. Откройте `radar_pyqtgraph.py` в Pycharm CE.
-4. Установите необходимые библиотеки из `requirements.txt`
 
 ## Запуск приложения
 
