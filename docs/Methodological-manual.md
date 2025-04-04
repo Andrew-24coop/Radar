@@ -134,6 +134,40 @@ if __name__ == "__main__":
                 self.update_radar(angle, distance)  # Обновление графика радара новыми данными
     ```
 
+- - Graph
+    ```
+    def setup_radar_graph(self):
+        self.radar_plot = pg.PlotWidget()  # Создание виджета графика
+        self.gridLayout.addWidget(self.radar_plot, 0, 0, 1, 1)  # Добавление виджета графика в сеточный макет
+
+        self.radar_plot.setAspectLocked(True)  # Блокировка соотношения сторон для сохранения круговой формы радара
+        self.radar_plot.setXRange(-self.max_distance, self.max_distance)  # Установка диапазона по оси X
+        self.radar_plot.setYRange(0, self.max_distance)  # Установка диапазона по оси Y
+
+        self.radar_plot.getAxis('bottom').setLabel('Distance (cm)')  # Подпись для оси X
+        self.radar_plot.getAxis('left').setLabel('Angle')  # Подпись для оси Y
+        self.radar_plot.showGrid(x=True, y=True)  # Отображение сетки на графике
+
+        # Инициализация пустого графика с точками, представленными зелеными кругами
+        self.radar_curve = self.radar_plot.plot([], [], pen=None, symbol='o', symbolSize=5, symbolBrush=(0, 255, 0))
+
+    def update_radar(self, angle, distance):
+        # Вычисление координат в декартовой системе для построения
+        x = distance * np.cos(np.radians(angle))  # X-координата на основе угла и расстояния
+        y = distance * np.sin(np.radians(angle))  # Y-координата на основе угла и расстояния
+
+        self.angle_data.append(x)  # Добавление X-координаты в список данных угла
+        self.distance_data.append(y)  # Добавление Y-координаты в список данных расстояния
+
+        # Ограничение размера списков данных до 180 элементов для поддержания производительности
+        if len(self.angle_data) > 180:
+            self.angle_data.pop(0)  # Удаление старой точки данных по X
+            self.distance_data.pop(0)  # Удаление старой точки данных по Y
+
+        # Обновление графика радара с новыми данными
+        self.radar_curve.setData(self.angle_data, self.distance_data)
+    ```
+
 
 
 #
