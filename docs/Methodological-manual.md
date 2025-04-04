@@ -25,7 +25,7 @@
 ### Python и PyQt
 
 1. Убедитесь, что у вас установлен [Python 3.6 или выше](https://www.python.org/downloads/).
-2. Установите [Pycharm CE](https://www.jetbrains.com/pycharm/download/) `*пролистайте чуть ниже`.
+2. Установите [Pycharm CE](https://www.jetbrains.com/pycharm/download/) `*на сайте пролистайте чуть ниже`.
 3. Создайте новый проект ![Image](https://raw.githubusercontent.com/Andrew-24coop/Radar/refs/heads/main/docs/image/create_new_project.png "Создать новый проект")  
 4. Поздравляю, можно начать программировать!
 
@@ -76,6 +76,64 @@ if __name__ == "__main__":
     window.show()  # Показать основное окно
     sys.exit(app.exec())  # Выполнение приложения
 ```
+
+- Разберем каждую функцию
+
+- - Функция `populate_ports(self)` обновляет список подключенных портов
+    ```
+    def populate_ports(self):
+        self.portlist.clear()  # Очистка существующего списка портов
+        ports = serial.tools.list_ports.comports()  # Перечисление всех доступных последовательных портов
+        for port in ports:
+            self.portlist.addItem(port.device)  # Добавление каждого порта в выпадающий список
+    ```
+- - Функция `connect_serial(self)` открывает последовательный порт для дальнейшей работы с Arduino (Важно: при подключении к порту, вы занимаете так называемый "трафик" - другое приложение не сможет подключиться к этому порту `важно закрывать порт в Arduino IDE перед подключением из приложения`)
+    ```
+    def connect_serial(self):
+        selected_port = self.portlist.currentText()  # Получение текущего выбранного порта
+        if not selected_port:
+            QMessageBox.warning(self, "Error", "No port selected!")  # Предупреждение, если порт не выбран
+            return
+    
+        self.serial.setPortName(selected_port)  # Установка имени выбранного порта
+        self.serial.setBaudRate(9600)  # Установка скорости передачи данных
+    
+        # Попытка открыть последовательный порт
+        if self.serial.open(QSerialPort.OpenModeFlag.ReadWrite):
+            QMessageBox.information(self, "Success",
+                                    f"Connected to {selected_port}")  # Сообщение об успешном подключении
+        else:
+            QMessageBox.critical(self, "Error",
+                                 "Failed to open serial port")  # Сообщение об ошибке, если не удалось открыть
+    ```
+- - Функция `disconnect_serial(self)` закрывает последовательный порт (отключает от Arduino)
+    ```
+    def disconnect_serial(self):
+        if self.serial.isOpen():  # Проверка, открыт ли порт
+            self.serial.close()  # Закрытие последовательного порта
+            QMessageBox.information(self, "Disconnected", "Serial port closed.")  # Уведомление пользователя
+    ```
+- - Функция `read_serial_port(self)` [text]
+    ```
+    def read_serial_port(self):
+        # Проверка, есть ли данные для чтения
+        while self.serial.canReadLine():
+            rx = self.serial.readLine()  # Чтение строки данных
+            rxs = str(rx, 'utf-8').strip()  # Декодирование байтов в строку и удаление пробелов
+            data = rxs.split(',')  # Разделение строки на компоненты
+
+            # Проверка формата данных
+
+            if data[0] == '1':
+                angle = int(data[1])  # Преобразование угла из строки в целое число
+                distance = float(data[2])  # Преобразование расстояния из строки в число с плавающей точкой
+
+                self.pos_l.setText(str(angle) + "°")  # Обновление метки угла в UI
+                self.dist_l.setText(str(distance) + " cm")  # Обновление метки расстояния в UI
+
+                self.update_radar(angle, distance)  # Обновление графика радара новыми данными
+    ```
+
 
 
 #
